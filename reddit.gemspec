@@ -1,5 +1,5 @@
 spec = Gem::Specification.new do |s| 
-  s.name = "Reddit"
+  s.name = "reddit"
   s.version = "0.1.0"
   s.author = "Brian Terlson"
   s.email = "btthalion@gmail.com"
