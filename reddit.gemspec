@@ -1,3 +1,5 @@
+require 'rake'
+
 spec = Gem::Specification.new do |s| 
   s.name = "Reddit"
   s.version = "0.1.0"

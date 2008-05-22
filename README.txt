@@ -1,26 +1,44 @@
 = reddit
 
-* FIX (url)
+* http://github.com/bterlson/reddit/
 
 == DESCRIPTION:
 
-FIX (describe your package)
+An interface to the reddit API.
 
 == FEATURES/PROBLEMS:
 
-* FIX (list of features or problems)
+* Retreive articles and their comments
+* Retreive user pages
 
 == SYNOPSIS:
 
-  FIX (code sample of usage)
+require 'rubygems'
+require 'reddit'
+
+reddit = Reddit::Session.new
+
+reddit.main.articles.each do |article|
+  p article.url
+  
+  article.comments.each do |comment|
+    p comment.body
+  end
+end
+
+p reddit.subreddit("programming").articles[1].author
+
+reddit.user("radhruin").comments.each do |comment|
+  p comment.body
+end
 
 == REQUIREMENTS:
 
-* FIX (list of requirements)
+* JSON >= 1.1.2 
 
 == INSTALL:
 
-* FIX (sudo gem install, anything else)
+* sudo gem install bterlson-reddit --source=http://gems.github.com
 
 == LICENSE:
 
