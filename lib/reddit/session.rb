@@ -1,5 +1,5 @@
 module Reddit
-  BASE_URL = "http://www.beta.reddit.com/"
+  BASE_URL = "http://www.reddit.com/"
   PROFILE_URL = BASE_URL + "user/[username]/"
   SUBREDDIT_URL = BASE_URL + "r/[subreddit]/"
   COMMENTS_URL = BASE_URL + "info/[id]/comments/"
