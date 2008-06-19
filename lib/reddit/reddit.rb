@@ -9,9 +9,25 @@ module Reddit
       @url = @name.nil? ? BASE_URL : SUBREDDIT_URL.gsub('[subreddit]', @name)
     end
     
+    def hot
+      articles 'hot'
+    end
+    
+    def top
+      articles 'top'
+    end
+    
+    def new
+      articles 'new'
+    end
+    
+    def controversial
+      articles 'controversial'
+    end
+    
     # Returns the articles found in this reddit.
-    def articles      
-      resources = get_resources(@url)
+    def articles(page = 'hot')
+      resources = get_resources("#{@url}#{page}/")
       
       articles = []
       

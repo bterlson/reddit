@@ -5,21 +5,58 @@ describe Reddit::Reddit do
     @reddit = Reddit::Reddit.new("programming")
   end
   
+  def test_articles
+    [
+        {:type => 't1', :data => {:attribute => 'value'}},
+        {:type => 't1', :data => {:attribute => 'value2'}}
+    ]
+  end
+  
   it "should know its url" do
     @reddit.url.should == Reddit::SUBREDDIT_URL.gsub('[subreddit]', 'programming')
   end
   
   it "should find the articles" do
-    @reddit.should_receive(:get_resources).and_return([
-        {:type => 't1', :data => {:attribute => 'value'}},
-        {:type => 't1', :data => {:attribute => 'value2'}}
-    ])
+    @reddit.should_receive(:get_resources).and_return(test_articles)
     
     mock_article = mock(Reddit::Article)
     Reddit::Article.should_receive(:new).twice.and_return(mock_article)
     
     @reddit.articles.should == [mock_article, mock_article]
   end
+  
+  it "should find top articles" do
+    mock_article = mock(Reddit::Article)
+    
+    @reddit.should_receive(:articles).with('top').and_return([mock_article, mock_article])
+    
+    @reddit.top.should == [mock_article, mock_article]
+  end
+  
+  it "should find new articles" do
+    mock_article = mock(Reddit::Article)
+    
+    @reddit.should_receive(:articles).with('new').and_return([mock_article, mock_article])
+    
+    @reddit.new.should == [mock_article, mock_article]
+  end
+  
+  it "should find controversial articles" do
+    mock_article = mock(Reddit::Article)
+    
+    @reddit.should_receive(:articles).with('controversial').and_return([mock_article, mock_article])
+    
+    @reddit.controversial.should == [mock_article, mock_article]
+  end
+  
+  it "should find hot articles" do
+    mock_article = mock(Reddit::Article)
+    
+    @reddit.should_receive(:articles).with('hot').and_return([mock_article, mock_article])
+    
+    @reddit.hot.should == [mock_article, mock_article]
+  end
+  
 end
 
 describe Reddit::Reddit, "With no subreddit specified" do

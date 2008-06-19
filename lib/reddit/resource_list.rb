@@ -8,6 +8,7 @@ module Reddit
     
     # Grabs the resources at the URL and returns the parsed json.
     def get_resources(url)
+      puts "Getting URL: #{url}"
       url = URI.parse(url)
       
       res = Net::HTTP.start(url.host, url.port) {|http|
