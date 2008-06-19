@@ -1,9 +1,14 @@
-== 0.1.0 2008-05-22
+== 0.2.1 2008-06-19
 
-* 1 major enhancement:
-  * Initial release
-
+* 1 tiny modification:
+  * Can retreive various reddit/subreddit pages (hot, new, controversial, top).
+  
 == 0.2.0 2008-06-09
 
 * 1 minor modification:
   * Changed the beta URL of reddit to the new URL of reddit
+  
+== 0.1.0 2008-05-22
+
+* 1 major enhancement:
+  * Initial release
