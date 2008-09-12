@@ -18,7 +18,11 @@ module Reddit
     end
     
     def new
-      articles 'new'
+      articles 'new', 'sort=new'
+    end
+    
+    def rising
+      articles 'new', 'sort=upcoming'
     end
     
     def controversial
@@ -26,8 +30,8 @@ module Reddit
     end
     
     # Returns the articles found in this reddit.
-    def articles(page = 'hot')
-      resources = get_resources("#{@url}#{page}/")
+    def articles(page = 'hot', querystring = '')
+      resources = get_resources("#{@url}#{page}/", querystring)
       
       articles = []
       

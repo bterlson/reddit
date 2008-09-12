@@ -7,12 +7,11 @@ module Reddit
     private
     
     # Grabs the resources at the URL and returns the parsed json.
-    def get_resources(url)
-      puts "Getting URL: #{url}"
+    def get_resources(url, querystring = '')
       url = URI.parse(url)
       
       res = Net::HTTP.start(url.host, url.port) {|http|
-        http.get(url.path + ".json")
+        http.get("#{url.path}.json?#{querystring}")
       }
       
       raise SubredditNotFound if res.is_a?(Net::HTTPRedirection)
