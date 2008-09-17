@@ -15,26 +15,24 @@ h2. FEATURES:
 
 h2. SYNOPSIS:
 
-<code>
-require 'rubygems'
-require 'reddit'
+    require 'rubygems'
+    require 'reddit'
 
-reddit = Reddit::Session.new
+    reddit = Reddit::Session.new
 
-reddit.main.articles('hot', :count => 100).each do |article|
-  p article.url
+    reddit.main.articles('hot', :count => 100).each do |article|
+      p article.url
   
-  article.comments.each do |comment|
-    p comment.body
-  end
-end
+      article.comments.each do |comment|
+        p comment.body
+      end
+    end
 
-p reddit.subreddit("programming").articles[1].author
+    p reddit.subreddit("programming").articles[1].author
 
-reddit.user("radhruin").comments(:count => 5).each do |comment|
-  p comment.body
-end
-</code>
+    reddit.user("radhruin").comments(:count => 5).each do |comment|
+      p comment.body
+    end
 
 h2. REQUIREMENTS:
 
