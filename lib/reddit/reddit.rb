@@ -9,37 +9,37 @@ module Reddit
       @url = @name.nil? ? BASE_URL : SUBREDDIT_URL.gsub('[subreddit]', @name)
     end
     
-    def hot
-      articles 'hot'
+    def hot(options = {})
+      articles 'hot', options
     end
     
-    def top
-      articles 'top'
+    def top(options = {})
+      articles 'top', options
     end
     
-    def new
-      articles 'new', 'sort=new'
+    def new(options = {})
+      options[:querystring] = 'sort=new'
+      articles 'new', options
     end
     
-    def rising
-      articles 'new', 'sort=upcoming'
+    def rising(options = {})
+      options[:querystring] = 'sort=rising'
+      articles 'new', options
     end
     
-    def controversial
-      articles 'controversial'
+    def controversial(options = {})
+      articles 'controversial', options
     end
     
     # Returns the articles found in this reddit.
-    def articles(page = 'hot', querystring = '')
-      resources = get_resources("#{@url}#{page}/", querystring)
-      
-      articles = []
-      
-      resources.each do |article|
-        articles << Article.new(article['data'])
+    # Options are:
+    #   Count: Return at least this many articles.
+    #   Querystring: Querystring to append to resource request
+    
+    def articles(page = 'hot', options = {})
+      get_resources("#{@url}#{page}", options) do |resource_json|
+        Article.new(resource_json['data'])
       end
-      
-      return articles
     end
   end
 end

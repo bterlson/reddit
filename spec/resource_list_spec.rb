@@ -12,12 +12,23 @@ describe Reddit::ResourceList, ".get_resources" do
   
   it "should get the resources from Reddit" do
     Net::HTTP.should_receive(:start).and_yield(@http_mock).and_return(@response_mock)
-    @resource_list.send(:get_resources, "http://reddit.com")
+    @resource_list.send(:get_resources, "http://reddit.com", :count => 1) do
+      mock('object', :name => "object_name")
+    end
+  end
+  
+  it "should get the specified number of resources" do
+    Net::HTTP.should_receive(:start).exactly(:twice).and_yield(@http_mock).and_return(@response_mock)
+    @resource_list.send(:get_resources, "http://reddit.com", :count => 2) do
+      mock('object', :name => "object_name")
+    end
   end
   
   it "should parse the JSON" do
     JSON.should_receive(:parse).and_return({'kind' => 'Listing', 'data' => {'children' => [{'data' => {'attribute' => 'value'}}]}})
-    @resource_list.send(:get_resources, "http://reddit.com")
+    @resource_list.send(:get_resources, "http://reddit.com", :count => 1) do
+      mock('object', :name => "object_name")
+    end
   end
   
   it "should raise an error when the subreddit is not found" do

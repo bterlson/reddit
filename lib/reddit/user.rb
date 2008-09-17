@@ -11,15 +11,12 @@ module Reddit
     end
     
     # Get the user's comments.
-    def comments
-      resources = get_resources(@url)
-      
-      comments = []
-      resources.each do |comment|
-        comments << Comment.new(comment['data'])
+    # Options can include a limit, which sets the number of comments to return.
+    
+    def comments(options = {})
+      get_resources("#{@url}comments/", :querystring => options[:querystring], :count => options[:count]) do |resource_json|
+        Comment.new(resource_json['data'])
       end
-      
-      return comments
     end
   end
 end

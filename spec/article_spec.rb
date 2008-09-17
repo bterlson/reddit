@@ -6,7 +6,7 @@ describe Reddit::Article do
   end
   
   it "should be able to get the article's comments comments" do
-    Reddit::CommentList.should_receive(:new).with("id").and_return("reddit!")
+    Reddit::CommentList.should_receive(:new).with("id").and_return(mock(Reddit::CommentList, :top_level => "reddit!"))
     @article.comments.should == "reddit!"
   end
 end

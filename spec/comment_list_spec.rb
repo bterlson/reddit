@@ -10,13 +10,9 @@ describe Reddit::CommentList do
   end
   
   it "should fetch the top level comments" do
-    @comments_list.should_receive(:get_resources).and_return([
-        {:type => 't1', :data => {:attribute => 'value'}},
-        {:type => 't1', :data => {:attribute => 'value2'}}
-    ])
-    
     mock_comment = mock(Reddit::Comment)
-    Reddit::Comment.should_receive(:new).twice.and_return(mock_comment)
+    
+    @comments_list.should_receive(:get_resources).and_return([mock_comment, mock_comment])
     
     @comments_list.top_level.should == [mock_comment, mock_comment]
   end

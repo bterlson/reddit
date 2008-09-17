@@ -10,15 +10,10 @@ module Reddit
     end
     
     # returns the top level comments for the thread.
-    def top_level
-      resources = get_resources(@url)
-      
-      comments = []
-      resources.each do |comment|
-        comments << Comment.new(comment['data'])
+    def top_level(options = {})
+      get_resources(@url, :querystring => options[:querystring], :count => options[:count]) do |resource_json|
+        comment = Comment.new(resource_json['data'])
       end
-      
-      return comments
     end
     
     private
@@ -26,6 +21,6 @@ module Reddit
     # forward any method calls to the top level comments array.
     def method_missing(meth, *args, &block)
       top_level.send(meth, *args, &block)
-    end    
+    end 
   end
 end

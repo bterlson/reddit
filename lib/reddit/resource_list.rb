@@ -7,21 +7,36 @@ module Reddit
     private
     
     # Grabs the resources at the URL and returns the parsed json.
-    def get_resources(url, querystring = '')
+    def get_resources(url, options = {}, &block)
+      querystring = options.delete(:querystring) || ''
+      count = options.delete(:count) || 25
       url = URI.parse(url)
+      items = []
+      after = ''
       
-      res = Net::HTTP.start(url.host, url.port) {|http|
-        http.get("#{url.path}.json?#{querystring}")
-      }
+      while items.size < count
+        res = Net::HTTP.start(url.host, url.port) {|http|
+          http.get("#{url.path}.json?#{querystring}&after=#{after}&limit=#{count - items.size}")
+        }
       
-      raise SubredditNotFound if res.is_a?(Net::HTTPRedirection)
-      resources = JSON.parse(res.body, :max_nesting => 0)
+        raise SubredditNotFound if res.is_a?(Net::HTTPRedirection)
       
-      # comments pages are contained in an array where the first element is the article
-      # and the second is the actual comments.  This is hackish.
-      resources = resources.last if resources.is_a?(Array)
+        resources = JSON.parse(res.body, :max_nesting => 0)
       
-      return resources['data']['children']
+        # comments pages are contained in an array where the first element is the article
+        # and the second is the actual comments.  This is hackish.
+        resources = resources.last if resources.is_a?(Array)
+        resources = resources['data']['children']
+        break if resources.size == 0
+        resources.each do |resource|
+          items << yield(resource)
+        end
+        
+        after = items.last.name
+      end
+      
+      items
     end
   end
+  
 end

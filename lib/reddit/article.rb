@@ -15,6 +15,7 @@ module Reddit
       @domain = attributes['domain']
       @author = User.new(attributes['author']) unless attributes['author'].nil?
       @id = attributes['id']
+      # Reddit's created_at timestamps are currently wonky, so this will return the wrong time.
       @created_at = Time.at(attributes['created']) unless attributes['created'].nil?
       @saved = attributes['saved']
       @clicked = attributes['clicked']
@@ -37,8 +38,9 @@ module Reddit
     end
     
     # returns a CommentList of this article's comments.
-    def comments
-      return CommentList.new(@id)
+    def comments(options = {})
+      @comments_list ||= CommentList.new(@id)
+      return @comments_list.top_level(options)
     end
   end
 end

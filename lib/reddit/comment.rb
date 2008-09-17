@@ -1,5 +1,4 @@
 module Reddit
-  
   # A reddit comment.
   class Comment
     attr_reader :body, :name, :ups, :downs, :url, :domain, :author, :id, :created_at, :replies
@@ -21,7 +20,6 @@ module Reddit
           @replies << Comment.new(reply['data'])
         end
       end
-      
     end
     
     # Returns the score for this comment.
@@ -29,5 +27,9 @@ module Reddit
       return @ups - @downs
     end
 
+    # returns a number representing how controversial this comment is
+    def controversy_score
+      (@ups + @downs).to_f / [score.abs, 1].max
+    end
   end
 end
