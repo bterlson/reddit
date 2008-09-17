@@ -1,19 +1,21 @@
-= reddit
+h1. reddit
 
-* http://github.com/bterlson/reddit/
+http://github.com/bterlson/reddit/
 
-== DESCRIPTION:
+h2. DESCRIPTION:
 
 An interface to the reddit API.
 
-== FEATURES:
+h2. FEATURES:
 
 * Retrieve articles and their comments
 * Retrieve user pages and any number of a user's comments
 * View hot, top, new, rising and controversial stories from main reddit or any subreddit
+* More, I'm sure!
 
-== SYNOPSIS:
+h2. SYNOPSIS:
 
+<code>
 require 'rubygems'
 require 'reddit'
 
@@ -32,16 +34,17 @@ p reddit.subreddit("programming").articles[1].author
 reddit.user("radhruin").comments(:count => 5).each do |comment|
   p comment.body
 end
+</code>
 
-== REQUIREMENTS:
+h2. REQUIREMENTS:
 
 * JSON >= 1.1.2 
 
-== INSTALL:
+h2. INSTALL:
 
 * sudo gem install bterlson-reddit --source=http://gems.github.com
 
-== LICENSE:
+h2. LICENSE:
 
 (The MIT License)
 
