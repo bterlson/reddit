@@ -6,10 +6,11 @@
 
 An interface to the reddit API.
 
-== FEATURES/PROBLEMS:
+== FEATURES:
 
-* Retreive articles and their comments
-* Retreive user pages
+* Retrieve articles and their comments
+* Retrieve user pages and any number of a user's comments
+* View hot, top, new, rising and controversial stories from main reddit or any subreddit
 
 == SYNOPSIS:
 
@@ -18,7 +19,7 @@ require 'reddit'
 
 reddit = Reddit::Session.new
 
-reddit.main.articles.each do |article|
+reddit.main.articles('hot', :count => 100).each do |article|
   p article.url
   
   article.comments.each do |comment|
@@ -28,7 +29,7 @@ end
 
 p reddit.subreddit("programming").articles[1].author
 
-reddit.user("radhruin").comments.each do |comment|
+reddit.user("radhruin").comments(:count => 5).each do |comment|
   p comment.body
 end
 
