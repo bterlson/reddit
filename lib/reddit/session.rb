@@ -2,7 +2,7 @@ module Reddit
   BASE_URL = "http://www.reddit.com/"
   PROFILE_URL = BASE_URL + "user/[username]/"
   SUBREDDIT_URL = BASE_URL + "r/[subreddit]/"
-  COMMENTS_URL = BASE_URL + "info/[id]/comments/"
+  COMMENTS_URL = BASE_URL + "comments/[id]/"
   
   # raised when attempting to interact with a subreddit that doesn't exist.
   class SubredditNotFound < StandardError; end
