@@ -1,7 +1,7 @@
 module Reddit
   # A reddit article or submission.
   class Article
-    attr_reader :score, :name, :title, :comment_count, :ups, :downs, :url, :domain, :author, :id, :created_at
+    attr_reader :score, :name, :title, :comment_count, :ups, :downs, :url, :domain, :author, :id, :created_at, :selftext, :selftext_html
     
     # Initializes the data for the article.  Takes a hash of the various attributes as taken from the API.
     def initialize(attributes)
@@ -20,6 +20,8 @@ module Reddit
       @saved = attributes['saved']
       @clicked = attributes['clicked']
       @hidden = attributes['hidden']
+      @selftext = attributes['selftext']
+      @selftext_html = attributes['selftext_html']
     end
     
     # indicates if the current logged in user has saved the article.
