@@ -15,7 +15,7 @@ module Reddit
       @body = attributes['body']
       @replies = []
       
-      unless attributes['replies'].nil?
+      unless attributes['replies'].nil? or attributes['replies']['data'].nil? or attributes['replies']['data']['children']
         attributes['replies']['data']['children'].each do |reply|
           @replies << Comment.new(reply['data'])
         end
