@@ -12,11 +12,12 @@ module Reddit
       count = options.delete(:count) || 25
       url = URI.parse(url)
       items = []
-      after = ''
+      after = options.delete(:after) || ''
+      before = options.delete(:before) || ''
       
       while items.size < count
         res = Net::HTTP.start(url.host, url.port) {|http|
-          http.get("#{url.path}.json?#{querystring}&after=#{after}&limit=#{count - items.size}")
+          http.get("#{url.path}.json?#{querystring}&after=#{after}&before=#{before}&limit=#{count - items.size}")
         }
       
         raise SubredditNotFound if res.is_a?(Net::HTTPRedirection)
